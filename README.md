@@ -4,6 +4,8 @@ Landing page conceito de portfólio para uma marca **inventada** de gomas de gel
 
 **Projeto conceito de portfólio. Sem vínculo com nenhuma marca real.** Nome, personagens, produtos, embalagens e textos são fictícios e foram criados do zero.
 
+**Ver online:** [gomolandiaprojeto.netlify.app](https://gomolandiaprojeto.netlify.app/)
+
 ## O que tem no projeto
 
 **Animações na rolagem:** textos e seções que aparecem e se movem conforme a página desce, feitos com GSAP e ScrollTrigger, com rolagem suave via Lenis.
