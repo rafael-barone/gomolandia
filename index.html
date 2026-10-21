@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR" class="sem-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gomolândia (conceito)</title>
+  <meta name="description" content="Gomolândia: landing page conceito de portfólio para uma marca inventada de gomas de gelatina. Projeto sem vínculo com nenhuma marca real.">
+  <meta name="theme-color" content="#FFFAF6">
+  <!-- Ícone da aba: uma bala de goma açucarada, desenhada aqui mesmo (sem arquivo de imagem) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M9 54C9 31 19 11 32 11s23 20 23 43z' fill='%23D4113A'/%3E%3Cellipse cx='23' cy='27' rx='4.5' ry='8' fill='%23fff' opacity='.5' transform='rotate(20 23 27)'/%3E%3Cg fill='%23fff'%3E%3Ccircle cx='38' cy='23' r='1.8'/%3E%3Ccircle cx='45' cy='37' r='1.8'/%3E%3Ccircle cx='31' cy='42' r='1.8'/%3E%3Ccircle cx='19' cy='45' r='1.6'/%3E%3Ccircle cx='40' cy='48' r='1.6'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Marca que há JavaScript. Se algo falhar, o conteúdo aparece mesmo assim depois de 4 s -->
+  <script>
+    document.documentElement.classList.remove('sem-js');
+    document.documentElement.classList.add('js', 'carregando');
+    setTimeout(function () { document.documentElement.classList.remove('carregando'); }, 4000);
+  </script>
+
+  <!-- Three.js (mascotes e embalagens em 3D), carregado sob demanda pelos scripts -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js" crossorigin>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Lilita+One&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/motion.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Sprite de formas (versões em SVG para quando não houver 3D) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="volume" cx="34%" cy="28%" r="80%">
+        <stop offset="0" stop-color="#fff" stop-opacity=".65"/>
+        <stop offset=".34" stop-color="#fff" stop-opacity="0"/>
+        <stop offset=".72" stop-color="#2A1630" stop-opacity="0"/>
+        <stop offset="1" stop-color="#2A1630" stop-opacity=".34"/>
+      </radialGradient>
+      <linearGradient id="volume-fita" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+        <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="1" stop-color="#2A1630" stop-opacity=".3"/>
+      </linearGradient>
+      <path id="p-anel" fill-rule="evenodd" d="M50 6a44 44 0 1 1 0 88a44 44 0 1 1 0-88zm0 28a16 16 0 1 0 0 32a16 16 0 1 0 0-32z"/>
+      <path id="p-gota" d="M50 6C50 6 88 54 88 78a38 38 0 0 1-76 0C12 54 50 6 50 6z"/>
+      <path id="p-cubo" d="M30 8h40a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H30A22 22 0 0 1 8 70V30A22 22 0 0 1 30 8z"/>
+      <path id="p-estrela" d="M50 7l12 27 29 3-22 20 7 29-26-15-26 15 7-29L9 37l29-3z"/>
+      <symbol id="forma-anel" viewBox="0 0 100 100">
+        <use href="#p-anel" fill="currentColor"/><use href="#p-anel" fill="url(#volume)"/>
+      </symbol>
+      <symbol id="forma-gota" viewBox="0 0 100 120">
+        <use href="#p-gota" fill="currentColor"/><use href="#p-gota" fill="url(#volume)"/>
+      </symbol>
+      <symbol id="forma-cubo" viewBox="0 0 100 100">
+        <use href="#p-cubo" fill="currentColor"/><use href="#p-cubo" fill="url(#volume)"/>
+        <g fill="#fff" opacity=".85"><circle cx="26" cy="30" r="2.5"/><circle cx="44" cy="20" r="2"/><circle cx="72" cy="28" r="2.5"/><circle cx="20" cy="54" r="2"/><circle cx="82" cy="52" r="2.5"/><circle cx="76" cy="76" r="2"/><circle cx="24" cy="78" r="2.5"/><circle cx="52" cy="84" r="2"/></g>
+      </symbol>
+      <symbol id="forma-estrela" viewBox="0 0 100 100">
+        <use href="#p-estrela" fill="currentColor" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/><use href="#p-estrela" fill="url(#volume)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Aviso obrigatório -->
+  <p class="aviso" role="note">Projeto conceito de portfólio. Sem vínculo com a marca.</p>
+
+  <header class="topo" data-cursor="#D4113A">
+    <div class="container topo__barra">
+      <a class="logo" href="#inicio" aria-label="Gomolândia, voltar ao início">Gomol<span class="logo__i">â</span>ndia</a>
+      <nav aria-label="Principal">
+        <ul class="menu">
+          <li><a href="#sobre">A ideia</a></li>
+          <li><a href="#produtos">Sabores</a></li>
+          <li><a href="#sensacoes">Sensações</a></li>
+        </ul>
+      </nav>
+      <a class="botao botao--pequeno" href="#contato">Quero revender</a>
+    </div>
+  </header>
+
+  <main id="conteudo" tabindex="-1">
+
+    <!-- 1. TOPO: produto em destaque + captação de contatos -->
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo" data-cursor="#D4113A">
+      <div class="container hero__grade">
+        <div class="hero__topo">
+          <p class="hero__selo">Linha nova · 5 sabores em 4 formatos</p>
+          <h1 class="hero__titulo" id="hero-titulo">
+            <span class="sr-only">Cor que chama. Sabor que volta.</span>
+            <span class="hero__titulo-visual" aria-hidden="true">
+              <span class="linha"><span class="palavra">Cor</span> <span class="palavra">que</span> <span class="palavra palavra--destaque">chama.</span></span>
+              <span class="linha"><span class="palavra">Sabor</span> <span class="palavra">que</span> <span class="palavra">volta.</span></span>
+            </span>
+          </h1>
+        </div>
+
+        <!-- Embalagens em 3D (sem WebGL, aparecem as artes planas) -->
+        <div class="hero__produtos" aria-hidden="true">
+          <canvas class="hero__canvas"></canvas>
+          <div class="hero__plano-b"></div>
+        </div>
+
+        <div class="hero__base">
+          <p class="hero__texto">Gomas de gelatina em embalagens feitas para brilhar na prateleira. Cadastre sua loja e receba o catálogo de revenda.</p>
+          <div class="hero__cta">
+            <form class="hero__lead" id="lead" novalidate>
+              <label class="sr-only" for="lead-email">Seu e-mail</label>
+              <input id="lead-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required aria-describedby="lead-msg">
+              <button class="botao" type="submit">Receber catálogo
+                <svg class="botao__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+            <p class="hero__lead-msg" id="lead-msg" role="status" aria-live="polite">Projeto conceito: nenhum dado é enviado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faixa corrida -->
+    <div class="letreiro" aria-hidden="true" data-cursor="#2A1630">
+      <div class="letreiro__trilho">
+        <span>goma ✦ brilho ✦ açúcar ✦ sorriso ✦ goma ✦ brilho ✦ açúcar ✦ sorriso ✦&nbsp;</span>
+        <span>goma ✦ brilho ✦ açúcar ✦ sorriso ✦ goma ✦ brilho ✦ açúcar ✦ sorriso ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- 2. A IDEIA (manifesto: as palavras acendem coloridas com a rolagem) -->
+    <section class="manifesto" id="sobre" aria-labelledby="sobre-titulo" data-cursor="#FFD21F">
+      <div class="container manifesto__grade">
+        <h2 class="rotulo rotulo--claro" id="sobre-titulo"><span class="rotulo__ponto" aria-hidden="true"></span>A ideia</h2>
+        <p class="manifesto__texto">A Gomolândia é um país inventado, feito de <span data-cor="limao">goma</span>, <span data-cor="piscina">brilho</span> e <span data-cor="chiclete">açúcar</span>. Cada bairro tem uma <span data-cor="maca">cor</span>, cada cor tem um <span data-cor="limao">sabor</span> e cada sabor guarda um <span data-cor="chiclete">sorriso</span>. Um projeto conceito para mostrar que uma marca pode ser divertida sem perder o <span data-cor="piscina">capricho</span>.</p>
+      </div>
+    </section>
+
+    <!-- 3. LINHA DE PRODUTOS -->
+    <section class="produtos" id="produtos" aria-labelledby="produtos-titulo" data-cursor="#D4113A">
+      <div class="container produtos__cabeca">
+        <div>
+          <p class="rotulo"><span class="rotulo__ponto" aria-hidden="true"></span>Linha de sabores</p>
+          <h2 class="titulo-l" id="produtos-titulo" data-palavras>Escolha seu bairro</h2>
+        </div>
+        <p class="produtos__nota" data-revelar>Cinco sabores em quatro formatos: pacote em pé, travesseiro, pote e caixinha. Produtos e embalagens ilustrativos deste projeto conceito.</p>
+      </div>
+
+      <div class="vitrine" aria-hidden="true">
+        <canvas class="vitrine__canvas"></canvas>
+        <div class="vitrine__etiqueta"><strong></strong><span></span></div>
+        <div class="vitrine__plano-b"></div>
+      </div>
+
+      <div class="container">
+        <ul class="sabores">
+          <li><button type="button" class="sabor" data-sabor="cola" style="--cor:#141414"><span class="sabor__ponto"></span><span class="sabor__nome">Gomas Cola</span><span class="sabor__desc">Garrafinhas de goma com sabor intenso de cola. Pacote 100 g.</span></button></li>
+          <li><button type="button" class="sabor" data-sabor="framboesa" style="--cor:#E3157F"><span class="sabor__ponto"></span><span class="sabor__nome">Gomas Framboesa</span><span class="sabor__desc">Frutinhas açucaradas sabor frutas vermelhas. Pacote 100 g.</span></button></li>
+          <li><button type="button" class="sabor" data-sabor="doces" style="--cor:#1B2A70"><span class="sabor__ponto"></span><span class="sabor__nome">Gomas Doces</span><span class="sabor__desc">Pote com gominhas açucaradas de sabores sortidos. 150 g.</span></button></li>
+          <li><button type="button" class="sabor" data-sabor="uva" style="--cor:#6E24C0"><span class="sabor__ponto"></span><span class="sabor__nome">Gomas Uva</span><span class="sabor__desc">Bolinhas de uva cobertas de açúcar. Pacote 70 g.</span></button></li>
+          <li><button type="button" class="sabor" data-sabor="minifrutas" style="--cor:#E0A800"><span class="sabor__ponto"></span><span class="sabor__nome">Gomas Mini Frutas</span><span class="sabor__desc">Mini gominhas de frutas sortidas. Caixinha 50 g.</span></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 4. SENSAÇÕES (fixa e rola na horizontal; na versão calma vira lista)
+         Cada painel liga uma sensação a um sabor. O personagem 3D fica no "chão" do painel
+         (área .painel__palco) e anda junto com ele; o título reage do mesmo jeito que o personagem. -->
+    <section class="sensacoes" id="sensacoes" aria-labelledby="sensacoes-titulo">
+      <h2 class="rotulo sensacoes__rotulo" id="sensacoes-titulo"><span class="rotulo__ponto" aria-hidden="true"></span>Sensações</h2>
+      <div class="sensacoes__palco" aria-hidden="true"><canvas class="sensacoes__canvas"></canvas></div>
+      <div class="sensacoes__trilho">
+        <article class="painel" data-personagem="abacaxi" data-acao="tremer" style="--cor:var(--maca)" data-cursor="#D4113A">
+          <div class="painel__conteudo">
+            <h3 class="painel__titulo">Azedinho</h3>
+            <p class="painel__texto">Faz careta e pede outra.</p>
+            <p class="painel__sabor"><span class="painel__ponto" style="--ponto:#FFD500"></span>Gomas Mini Frutas</p>
+          </div>
+          <div class="painel__palco" aria-hidden="true"></div>
+        </article>
+        <article class="painel" data-personagem="framboesa" data-acao="onda" style="--cor:var(--piscina)" data-cursor="#D4113A">
+          <div class="painel__conteudo">
+            <h3 class="painel__titulo">Doce</h3>
+            <p class="painel__texto">Some do pacote antes de chegar em casa.</p>
+            <p class="painel__sabor"><span class="painel__ponto" style="--ponto:#E3157F"></span>Gomas Framboesa</p>
+          </div>
+          <div class="painel__palco" aria-hidden="true"></div>
+        </article>
+        <article class="painel" data-personagem="garrafa" data-acao="brilho" style="--cor:var(--limao)" data-cursor="#1F3C9E">
+          <div class="painel__conteudo">
+            <h3 class="painel__titulo">Brilhante</h3>
+            <p class="painel__texto">Chama o olhar do outro lado do balcão.</p>
+            <p class="painel__sabor"><span class="painel__ponto" style="--ponto:#141414"></span>Gomas Cola</p>
+          </div>
+          <div class="painel__palco" aria-hidden="true"></div>
+        </article>
+        <article class="painel" data-personagem="uva" data-acao="amassar" style="--cor:var(--chiclete)" data-cursor="#FFD21F">
+          <div class="painel__conteudo">
+            <h3 class="painel__titulo">Macio</h3>
+            <p class="painel__texto">Estica, volta e estica de novo.</p>
+            <p class="painel__sabor"><span class="painel__ponto" style="--ponto:#6E24C0"></span>Gomas Uva</p>
+          </div>
+          <div class="painel__palco" aria-hidden="true"></div>
+        </article>
+        <article class="painel painel--elenco" data-personagem="elenco" data-acao="pular" style="--cor:var(--cereja);--texto:var(--creme);--titulo:var(--limao)" data-cursor="#2FB8D6">
+          <div class="painel__conteudo">
+            <h3 class="painel__titulo">Explosivo</h3>
+            <div class="painel__fecho">
+              <p class="painel__texto">A turma inteira no catálogo de revenda: cinco sabores, quatro formatos.</p>
+              <a class="botao painel__botao" href="#contato">Quero revender
+                <svg class="botao__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="painel__palco" aria-hidden="true"></div>
+        </article>
+      </div>
+      <div class="sensacoes__progresso" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- 5. CHAMADA FINAL + FORMULÁRIO VISUAL -->
+    <section class="contato" id="contato" aria-labelledby="contato-titulo" data-cursor="#FFD21F">
+      <div class="container">
+        <div class="contato__cartao">
+          <div class="contato__chamada">
+            <p class="rotulo rotulo--claro"><span class="rotulo__ponto" aria-hidden="true"></span>Vamos conversar?</p>
+            <h2 class="titulo-l contato__titulo" id="contato-titulo" data-palavras>Quer um pedaço da Gomolândia?</h2>
+            <p class="contato__texto">Este formulário é apenas visual: nada é enviado nem armazenado.</p>
+            <div class="contato__pacotes" aria-hidden="true"></div>
+          </div>
+          <form class="formulario" id="formulario" novalidate data-revelar>
+            <label for="nome">Nome</label>
+            <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Ana Souza" required>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="ana@exemplo.com" required>
+            <label for="sabor">Sabor favorito</label>
+            <select id="sabor" name="sabor">
+              <option>Cola</option><option>Framboesa</option><option>Doces</option>
+              <option>Uva</option><option>Mini Frutas</option>
+            </select>
+            <button class="botao botao--largo" type="submit">Quero provar
+              <svg class="botao__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="formulario__msg" id="formulario-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 6. RODAPÉ -->
+  <footer class="rodape" data-cursor="#FFD21F">
+    <div class="container rodape__grade">
+      <p class="logo logo--claro rodape__logo">Gomol<span class="logo__i">â</span>ndia</p>
+      <p class="rodape__aviso"><strong>Projeto conceito de portfólio. Sem vínculo com a marca.</strong><br>Nome, personagens, produtos, embalagens e textos são fictícios, criados do zero para este estudo.</p>
+      <p class="rodape__credito">Design e código: Rafa Barone</p>
+    </div>
+  </footer>
+
+  <!-- Bibliotecas (versões fixas) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha384-P8VzCVnT9NBUkMrpcIZrJbA7EBjJvh/fJS6PmP+4nLIM284DtsImIv8D0fFjIkeh" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" integrity="sha384-FKTX0CNJ8ngN1oGMBReVu7mvjTJyjFiD5etb1NKnYxc+8eFI2O0KWnksTN+oTFcu" crossorigin="anonymous" defer></script>
+
+  <!-- Código do projeto -->
+  <script src="js/arte-embalagem.js" defer></script>
+  <script src="js/3d/nucleo.js" defer></script>
+  <script src="js/3d/vitrine3d.js" defer></script>
+  <script src="js/3d/sensacoes3d.js" defer></script>
+  <script src="js/cursor.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

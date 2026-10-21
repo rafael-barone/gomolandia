@@ -1,0 +1,379 @@
+/* =========================================================
+   Layout das seções (mobile primeiro)
+   ========================================================= */
+
+/* Aviso de projeto conceito */
+.aviso {
+  position: relative;
+  z-index: 60;
+  background: var(--tinta);
+  color: var(--creme);
+  text-align: center;
+  font-size: .8125rem;
+  font-weight: 600;
+  padding: 8px var(--gutter);
+}
+@media (max-width: 480px) { .aviso { font-size: .7rem; padding-inline: 12px; } }
+
+/* ---------- Topo ---------- */
+.topo {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--papel);
+  border-bottom: 1px solid var(--linha);
+  transition: transform .45s var(--saida);
+}
+.topo--escondido { transform: translateY(-100%); }
+.topo__barra { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: var(--altura-topo); }
+.menu { display: none; gap: 32px; font-weight: 600; font-size: .98rem; }
+.menu a { position: relative; color: var(--tinta); text-decoration: none; padding: 6px 0; }
+.menu a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--cereja); border-radius: 2px;
+  transform: scaleX(0); transform-origin: right; transition: transform .35s var(--saida);
+}
+.menu a:hover::after { transform: scaleX(1); transform-origin: left; }
+@media (min-width: 768px) { .menu { display: flex; } }
+
+/* ---------- 1. Hero: produto em destaque + captação de contatos ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(48% 42% at 50% 64%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(60% 40% at 50% 100%, rgba(247, 161, 181, .32) 0%, rgba(247, 161, 181, 0) 70%),
+    var(--papel);
+}
+.hero__grade {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: calc(100svh - var(--altura-topo) - 36px);
+  padding-block: clamp(24px, 3.6vw, 48px) clamp(20px, 2.6vw, 36px);
+}
+@media (max-width: 599px) {
+  .hero__grade { min-height: 0; }
+  .hero__produtos { min-height: 70vw; }
+}
+.hero__topo { position: relative; z-index: 1; text-align: center; }
+.hero__selo {
+  display: inline-block;
+  margin-bottom: clamp(14px, 2vw, 22px);
+  font: 600 .8rem/1.2 var(--fonte-texto);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.hero__titulo {
+  font-size: clamp(2.8rem, min(6.8vw, 11.5svh), 7rem);
+  line-height: .92;
+  letter-spacing: -.045em;
+}
+/* cada linha é uma "máscara" para as palavras subirem; depois da entrada, libera o pulo das letras */
+.hero__titulo .linha { display: block; overflow: hidden; padding-block: .04em .1em; margin-block: -.04em -.1em; }
+.hero__titulo.intro-feita .linha { overflow: visible; }
+.hero__titulo .palavra { display: inline-block; }
+.palavra--destaque { color: var(--cereja); }
+
+/* Área das embalagens: sobe um pouco por cima do título (profundidade) */
+.hero__produtos {
+  position: relative; z-index: 2;
+  min-height: clamp(250px, min(34vw, 44svh), 480px);
+  margin: calc(-1 * clamp(14px, 2.6vw, 48px)) calc(-1 * var(--gutter)) 0;
+}
+.hero__canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.hero.tem-3d .hero__canvas { opacity: 1; }
+.hero__produtos.com-foco { cursor: pointer; }
+.hero__plano-b { display: none; }
+.hero.sem-3d .hero__plano-b {
+  display: flex; justify-content: center; align-items: flex-end; gap: clamp(8px, 2vw, 24px);
+  height: 100%; padding-top: 40px;
+}
+.hero__plano-b canvas { width: clamp(110px, 18vw, 220px); height: auto; filter: drop-shadow(0 22px 26px rgba(42, 22, 48, .28)); }
+.hero__plano-b canvas:nth-child(1) { rotate: -8deg; translate: 0 10px; }
+.hero__plano-b canvas:nth-child(3) { rotate: 8deg; translate: 0 10px; }
+
+.hero__base {
+  position: relative; z-index: 3;
+  display: grid; gap: 18px 40px;
+  align-items: end;
+  margin-top: 8px;
+}
+@media (min-width: 900px) { .hero__base { grid-template-columns: minmax(0, 1fr) auto; } }
+@media (max-width: 899px) {
+  .hero__base { justify-items: center; text-align: center; }
+  .hero__texto { margin-inline: auto; }
+}
+.hero__texto { max-width: 38ch; font-size: clamp(1rem, 1.2vw, 1.12rem); color: var(--tinta-suave); }
+.hero__cta { display: grid; gap: 8px; width: min(100%, 480px); }
+.hero__lead {
+  --foco: var(--cereja);
+  display: flex; gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(42, 22, 48, .06), 0 16px 40px -18px rgba(42, 22, 48, .35);
+  transition: box-shadow .3s ease;
+}
+.hero__lead:focus-within { box-shadow: 0 0 0 2px var(--cereja), 0 16px 40px -18px rgba(42, 22, 48, .35); }
+.hero__lead input {
+  flex: 1; min-width: 0;
+  min-height: 52px; padding: 0 20px;
+  border: 0; border-radius: 999px;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+}
+.hero__lead input[aria-invalid="true"] { color: #b00d31; }
+.hero__lead .botao { flex: none; min-height: 52px; }
+.hero__lead-msg { padding-inline: 20px; font-size: .82rem; color: var(--tinta-suave); }
+.hero__lead-msg.erro { color: #b00d31; font-weight: 600; }
+.hero__lead-msg.ok { color: var(--noite); font-weight: 600; }
+@media (max-width: 420px) {
+  .hero__lead { flex-direction: column; border-radius: 26px; }
+  .hero__lead input { text-align: center; }
+}
+
+/* ---------- Faixa corrida ---------- */
+.letreiro {
+  position: relative; z-index: 4;
+  background: var(--tinta);
+  overflow: hidden;
+}
+.letreiro__trilho { display: flex; width: max-content; will-change: transform; }
+.letreiro span {
+  font: 600 clamp(1rem, 1.6vw, 1.25rem)/1 var(--fonte-display);
+  letter-spacing: -.01em;
+  padding-block: 18px;
+  white-space: nowrap;
+  color: var(--creme);
+}
+main { overflow-x: clip; }
+
+/* ---------- 2. Manifesto ---------- */
+.manifesto {
+  --foco: var(--limao);
+  position: relative;
+  background: var(--tinta);
+  color: var(--creme);
+  overflow: hidden;
+}
+.manifesto__grade {
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  gap: clamp(24px, 4vw, 44px);
+  padding-block: clamp(96px, 12vw, 140px) clamp(72px, 9vw, 110px);
+}
+.manifesto__texto {
+  font: 700 clamp(1.75rem, 3.5vw, 3.5rem)/1.1 var(--fonte-display);
+  letter-spacing: -.025em;
+  max-width: 25ch;
+}
+/* sem JS, os destaques já aparecem coloridos */
+.manifesto__texto [data-cor="limao"] { color: var(--limao); }
+.manifesto__texto [data-cor="piscina"] { color: var(--piscina); }
+.manifesto__texto [data-cor="chiclete"] { color: var(--chiclete); }
+.manifesto__texto [data-cor="maca"] { color: var(--maca); }
+
+/* ---------- 3. Produtos ---------- */
+.produtos { padding-block: clamp(80px, 11vw, 150px) clamp(64px, 9vw, 120px); }
+.produtos__cabeca { display: grid; gap: 18px; align-items: end; }
+.produtos__cabeca h2 { margin-top: 16px; }
+@media (min-width: 900px) { .produtos__cabeca { grid-template-columns: 1.2fr 1fr; } }
+.produtos__nota { max-width: 40ch; color: var(--tinta-suave); }
+
+.vitrine {
+  position: relative;
+  height: clamp(560px, 62vw, 860px);
+  margin-block: clamp(16px, 3vw, 36px) clamp(24px, 4vw, 48px);
+  background:
+    radial-gradient(55% 45% at 50% 62%, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(70% 60% at 50% 100%, rgba(247, 161, 181, .35) 0%, rgba(247, 161, 181, 0) 70%);
+}
+@media (max-width: 767px) { .vitrine { height: min(165vw, 860px); } }
+.vitrine__canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.vitrine.tem-3d .vitrine__canvas { opacity: 1; }
+.vitrine.com-foco { cursor: pointer; }
+.vitrine__etiqueta {
+  position: absolute; left: 0; top: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: var(--tinta);
+  color: var(--creme);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .25s ease;
+  white-space: nowrap;
+}
+.vitrine__etiqueta strong { font: 800 1.05rem/1 var(--fonte-display); letter-spacing: -.02em; }
+.vitrine__etiqueta span { font-size: .8rem; opacity: .75; }
+.vitrine__etiqueta.visivel { opacity: 1; }
+/* Sem 3D: as artes das embalagens em grade */
+.vitrine__plano-b {
+  display: none;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: center; justify-items: center;
+  padding: 24px var(--gutter);
+}
+.vitrine.sem-3d { height: auto; }
+.vitrine.sem-3d .vitrine__plano-b { display: grid; }
+.vitrine__plano-b canvas { width: min(100%, 220px); height: auto; filter: drop-shadow(0 18px 24px rgba(42, 22, 48, .25)); }
+@media (max-width: 767px) { .vitrine__plano-b { grid-template-columns: repeat(2, 1fr); } }
+
+.sabores { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .sabores { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .sabores { grid-template-columns: repeat(3, 1fr); gap: 14px 18px; } }
+
+/* ---------- 4. Sensações ---------- */
+.sensacoes { --foco: var(--tinta); --sens-texto: var(--tinta); position: relative; overflow: hidden; background: var(--tinta); }
+.sensacoes[data-sensacao="4"] { --sens-texto: var(--creme); }
+.sensacoes__rotulo {
+  position: absolute; z-index: 4;
+  top: clamp(24px, 4svh, 40px); left: var(--gutter);
+  color: var(--sens-texto);
+  transition: color .4s ease;
+}
+.sensacoes__rotulo .rotulo__ponto { background: currentColor; }
+.sensacoes__trilho { display: flex; flex-direction: column; }
+
+/* Painel: cor do sabor, título gigante, uma frase e o sabor ligado à sensação */
+.painel {
+  --texto: var(--tinta);
+  --titulo: var(--tinta);
+  position: relative;
+  padding: clamp(84px, 10vw, 128px) var(--gutter);
+  background: var(--cor);
+  color: var(--texto);
+  overflow: hidden;
+}
+.painel__conteudo { position: relative; z-index: 2; }
+.painel__titulo {
+  font-size: clamp(3.6rem, 11.5vw, 11.5rem);
+  line-height: .84;
+  letter-spacing: -.055em;
+  margin-left: -.045em; /* alinhamento ótico da letra gigante com o texto */
+  color: var(--titulo);
+}
+.painel__titulo .palavra { display: inline-block; white-space: nowrap; }
+.painel__texto {
+  margin-top: clamp(16px, 2.6svh, 28px);
+  max-width: 21ch;
+  font: 600 clamp(1.15rem, 1.7vw, 1.55rem)/1.3 var(--fonte-texto);
+  text-wrap: balance;
+}
+.painel__sabor {
+  display: inline-flex; align-items: center; gap: .75em;
+  margin-top: 18px;
+  font: 700 .78rem/1.2 var(--fonte-texto);
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.painel__ponto { flex: none; width: 11px; height: 11px; border-radius: 50%; background: var(--ponto); box-shadow: 0 0 0 2px rgba(255, 255, 255, .6); }
+.painel .painel__botao { margin-top: 26px; background: var(--creme); color: var(--tinta); }
+@media (hover: hover) { .painel .painel__botao:hover { background: var(--limao); } }
+.painel--elenco .painel__texto { max-width: 26ch; }
+
+/* Onde o personagem fica de pé. O 3D lê esta caixa; na versão calma ela recebe as fotos dos personagens */
+.painel__palco {
+  display: flex; justify-content: center; align-items: flex-end;
+  height: clamp(240px, 52vw, 440px);
+  margin-top: 32px;
+}
+.painel__palco canvas { height: 100%; width: auto; min-width: 0; }
+.painel--elenco .painel__palco canvas { height: 74%; margin-inline: -1.5%; }
+@media (min-width: 900px) {
+  .painel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); align-items: center; column-gap: 4vw; }
+  .painel__palco { margin: 0; height: clamp(320px, 36vw, 480px); }
+  .painel--elenco { grid-template-columns: minmax(0, 1fr); }
+  .painel--elenco .painel__palco { margin-top: 48px; height: clamp(260px, 26vw, 360px); }
+  .painel--elenco .painel__conteudo { display: flex; align-items: flex-end; justify-content: space-between; gap: 5vw; }
+  .painel--elenco .painel__fecho { flex: 0 1 30ch; padding-bottom: .4vw; }
+}
+.sensacoes__palco, .sensacoes__progresso { display: none; }
+
+/* Modo fixo (JS ativo, sem "reduzir movimento"): painéis lado a lado, personagens em 3D */
+.sensacoes.fixada { height: 100vh; height: 100svh; }
+.sensacoes.fixada .sensacoes__trilho { flex-direction: row; width: max-content; height: 100%; }
+.sensacoes.fixada .painel {
+  display: block;
+  flex: 0 0 100vw; width: 100vw; height: 100%;
+  padding-top: clamp(96px, 15svh, 150px);
+}
+/* chão de estúdio: a cor escurece de leve perto do chão */
+.sensacoes.fixada .painel::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+  background: linear-gradient(180deg, rgba(42, 22, 48, 0), rgba(42, 22, 48, .08));
+  pointer-events: none;
+}
+.sensacoes.fixada .painel__palco {
+  position: absolute; margin: 0;
+  right: 6vw; bottom: 12svh;
+  width: 40vw; height: 62svh;
+}
+.sensacoes.fixada .painel--elenco .painel__palco { left: 5vw; right: 5vw; width: auto; bottom: 11svh; height: 44svh; }
+.sensacoes.fixada .sensacoes__palco {
+  display: block;
+  position: absolute; z-index: 3; inset: 0;
+  pointer-events: none;
+}
+.sensacoes__canvas { width: 100%; height: 100%; }
+.sensacoes.fixada .sensacoes__progresso {
+  display: block;
+  position: absolute; z-index: 4;
+  left: var(--gutter); right: var(--gutter); bottom: 26px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(42, 22, 48, .16);
+  overflow: hidden;
+}
+.sensacoes__progresso span { display: block; height: 100%; background: currentColor; color: var(--tinta); transform-origin: left center; transform: scaleX(0); }
+
+@media (max-width: 767px) {
+  .painel__titulo { font-size: 18vw; }
+  .sensacoes.fixada .painel { padding-top: clamp(84px, 12svh, 110px); }
+  .sensacoes.fixada .painel__palco { left: 8vw; right: 8vw; width: auto; bottom: 8svh; height: 52svh; }
+  .sensacoes.fixada .painel--elenco .painel__palco { left: 3vw; right: 3vw; bottom: 9svh; height: 34svh; }
+}
+
+/* ---------- 5. Contato ---------- */
+.contato { padding-block: clamp(48px, 8vw, 120px) clamp(64px, 9vw, 130px); }
+.contato__cartao {
+  --foco: var(--limao);
+  position: relative;
+  display: grid; gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 72px);
+  border-radius: var(--raio-g);
+  background:
+    radial-gradient(90% 80% at 10% 0%, rgba(255, 92, 138, .55) 0%, rgba(255, 92, 138, 0) 60%),
+    var(--cereja);
+  color: var(--creme);
+  overflow: hidden;
+}
+@media (min-width: 900px) { .contato__cartao { grid-template-columns: 1.05fr 1fr; } }
+.contato__titulo { margin-block: 16px 18px; max-width: 11ch; }
+.contato__texto { color: rgba(255, 246, 241, .85); max-width: 36ch; }
+.contato__pacotes { position: relative; height: 0; }
+@media (min-width: 900px) {
+  .contato__pacotes { height: clamp(150px, 16vw, 220px); margin-top: 28px; }
+}
+
+/* ---------- 6. Rodapé ---------- */
+.rodape { background: var(--tinta); color: var(--creme); padding-block: 52px; }
+.rodape__grade { display: grid; gap: 20px; }
+@media (min-width: 900px) { .rodape__grade { grid-template-columns: auto 1fr auto; align-items: center; gap: 48px; } }
+.rodape__logo { font-size: clamp(2rem, 4vw, 2.6rem); }
+.rodape__aviso { font-size: .9375rem; color: rgba(255, 246, 241, .8); }
+.rodape__aviso strong { color: var(--creme); }
+.rodape__credito { font-size: .875rem; opacity: .75; }

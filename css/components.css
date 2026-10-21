@@ -1,0 +1,129 @@
+/* =========================================================
+   Componentes: logo, botões, links, lista de sabores, formulário
+   ========================================================= */
+
+/* Logo: o mesmo das embalagens (letras brancas, contorno azul e sorriso amarelo) */
+.logo {
+  position: relative;
+  display: inline-block;
+  padding-bottom: .16em;
+  font-family: var(--fonte-logo);
+  font-size: clamp(1.55rem, 2.6vw, 1.95rem);
+  line-height: 1;
+  color: #fff;
+  -webkit-text-stroke: .2em #1B2A78;
+  paint-order: stroke fill;
+  text-shadow: 0 .09em 0 #0E1550;
+  text-decoration: none;
+  letter-spacing: .01em;
+}
+.logo::after {
+  content: "";
+  position: absolute; left: 50%; bottom: -.16em;
+  width: 2.1em; height: .5em;
+  translate: -50% 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 26'%3E%3Cpath d='M7 6 Q50 32 93 6' fill='none' stroke='%231B2A78' stroke-width='13' stroke-linecap='round'/%3E%3Cpath d='M7 6 Q50 32 93 6' fill='none' stroke='%23FFC400' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+.logo__i { color: inherit; }
+.logo--claro { -webkit-text-stroke-color: #1B2A78; }
+
+/* Botões: pílula sólida, seta que desliza no hover.
+   Usam "translate"/"scale" para não brigar com o GSAP (que usa transform). */
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6em;
+  min-height: 54px; padding: 0 26px;
+  border: 0; border-radius: 999px;
+  background: var(--tinta); color: var(--creme);
+  font: 600 1rem/1 var(--fonte-texto);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .3s ease, translate .25s var(--saida);
+}
+.botao__seta { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: translate .3s var(--saida); }
+.botao:active { translate: 0 2px; }
+.botao--pequeno { min-height: 42px; padding: 0 18px; font-size: .92rem; background: var(--cereja); }
+.botao--largo { width: 100%; }
+@media (hover: hover) {
+  .botao:hover { background: var(--cereja); }
+  .botao--pequeno:hover { background: var(--tinta); }
+  .botao:hover .botao__seta { translate: 4px 0; }
+}
+.contato .botao { background: var(--tinta); }
+@media (hover: hover) { .contato .botao:hover { background: var(--noite); } }
+
+/* Link com linha que corre */
+.link-linha {
+  position: relative;
+  color: var(--tinta);
+  font-weight: 600;
+  text-decoration: none;
+  padding-block: 6px;
+}
+.link-linha::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px;
+  background: currentColor; border-radius: 2px;
+  transform-origin: left; transition: transform .4s var(--saida);
+}
+@media (hover: hover) {
+  .link-linha:hover::after { transform: scaleX(0); transform-origin: right; }
+}
+
+/* Lista de sabores (cada item destaca o produto na vitrine 3D) */
+.sabor {
+  width: 100%;
+  display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 2px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--linha);
+  border-radius: 18px;
+  background: #fff;
+  text-align: left;
+  transition: border-color .3s ease, translate .3s var(--saida), box-shadow .3s ease;
+}
+.sabor__ponto { grid-row: span 2; width: 14px; height: 14px; border-radius: 50%; background: var(--cor); box-shadow: 0 0 0 5px color-mix(in srgb, var(--cor) 18%, transparent); }
+.sabor__nome { font: 800 1.2rem/1.1 var(--fonte-display); letter-spacing: -.02em; }
+.sabor__desc { font-size: .92rem; color: var(--tinta-suave); line-height: 1.4; }
+.sabor[aria-pressed="true"], .sabor:focus-visible { border-color: var(--cor); }
+@media (hover: hover) {
+  .sabor:hover { border-color: var(--cor); translate: 0 -2px; box-shadow: var(--sombra); }
+}
+
+/* ---------- Formulário visual ---------- */
+.formulario {
+  --foco: var(--cereja);
+  display: grid; gap: 8px;
+  padding: clamp(24px, 3.5vw, 40px);
+  background: #fff;
+  color: var(--tinta);
+  border-radius: calc(var(--raio-g) - 10px);
+  box-shadow: 0 30px 60px -30px rgba(42, 22, 48, .55);
+}
+.formulario label { font-weight: 700; font-size: .92rem; margin-top: 8px; }
+.formulario input, .formulario select {
+  min-height: 52px; padding: 10px 16px;
+  border: 1.5px solid var(--linha); border-radius: 14px;
+  background: var(--papel);
+  font-size: 1rem; /* evita zoom no iOS */
+  transition: border-color .2s ease;
+}
+.formulario input:focus, .formulario select:focus { border-color: var(--cereja); }
+.formulario input::placeholder { color: #8a7a8f; }
+.formulario input[aria-invalid="true"] { border-color: var(--cereja); }
+.formulario .botao { margin-top: 16px; }
+.formulario__msg { min-height: 1.6em; font-weight: 700; color: var(--noite); }
+.formulario__msg.erro { color: #b00d31; }
+
+/* Embalagens desenhadas ao lado do formulário */
+.contato__pacotes canvas {
+  position: absolute; bottom: -30px;
+  width: clamp(110px, 11vw, 150px); height: auto;
+  filter: drop-shadow(0 16px 20px rgba(42, 22, 48, .35));
+}
+.contato__pacotes canvas:nth-child(1) { left: 0; rotate: -10deg; }
+.contato__pacotes canvas:nth-child(2) { left: clamp(90px, 9vw, 125px); rotate: 6deg; z-index: 1; }
+.contato__pacotes canvas:nth-child(3) { left: clamp(185px, 18.5vw, 250px); rotate: -4deg; }
+@media (max-width: 899px) { .contato__pacotes { display: none; } }
+
+/* Confete de balas (criado pelo JS) */
+.confete { position: fixed; left: 0; top: 0; z-index: 9000; width: 30px; height: 30px; pointer-events: none; overflow: visible; }

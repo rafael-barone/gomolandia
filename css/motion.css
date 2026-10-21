@@ -1,0 +1,91 @@
+/* =========================================================
+   Movimento: estados iniciais, micro-interações, cursor,
+   Lenis e a versão calma (prefers-reduced-motion)
+   ========================================================= */
+
+/* Esconde o texto do topo só até o GSAP preparar a entrada (máx. 4 s, ver <head>) */
+.carregando .hero__conteudo { visibility: hidden; }
+
+/* Rolagem suave nativa quando não há Lenis */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+/* Regras recomendadas pelo Lenis */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* Letras e palavras divididas pelo JS */
+.letra { display: inline-block; transform-origin: 50% 100%; }
+/* palavra com "máscara": a parte de dentro sobe de baixo para cima */
+.pm { display: inline-block; overflow: hidden; vertical-align: top; padding-block: .06em .12em; margin-block: -.06em -.12em; }
+.pm__in { display: inline-block; }
+/* Títulos das Sensações: cada letra reage à sensação; a camada "luz" faz o brilho passar pela palavra */
+.painel__titulo .letra { position: relative; }
+.letra__luz { position: absolute; left: 0; top: 0; color: #FFFDF2; opacity: 0; pointer-events: none; }
+
+/* Manifesto: cada palavra tem uma camada base (creme) e uma camada colorida por cima */
+.mw { position: relative; display: inline-block; }
+.mw__cor { position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0; }
+
+@media (hover: hover) {
+  /* Letras do título principal dão um pulinho quando o mouse passa */
+  .hero__titulo .letra { transition: translate .35s var(--mola); }
+  .hero__titulo.intro-feita .letra:hover { translate: 0 -.08em; }
+
+  /* Rodapé: as letras do logo fazem uma "ola" */
+  .rodape__logo:hover .letra { animation: ola .6s var(--mola) both; animation-delay: calc(var(--i) * 45ms); }
+}
+@keyframes ola {
+  0%, 100% { translate: 0 0; }
+  40% { translate: 0 -.2em; }
+}
+
+/* Embalagens desenhadas no contato balançam de leve */
+.contato__pacotes canvas { animation: balanca 5s ease-in-out infinite; }
+.contato__pacotes canvas:nth-child(2) { animation-delay: -1.7s; }
+.contato__pacotes canvas:nth-child(3) { animation-delay: -3.1s; }
+@keyframes balanca {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+/* ---------- Cursor de bolinha de goma ---------- */
+.cursor-goma {
+  position: fixed; left: 0; top: 0; z-index: 10000;
+  width: 20px; height: 20px; margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  background-color: var(--chiclete);
+  background-image: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .85) 0 18%, rgba(255, 255, 255, 0) 42%);
+  box-shadow: 0 4px 10px -2px rgba(42, 22, 48, .35);
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity .2s ease, background-color .3s ease;
+}
+.cursor-ponto {
+  position: fixed; left: 0; top: 0; z-index: 10001;
+  width: 6px; height: 6px; margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--tinta);
+  box-shadow: 0 0 0 1.5px #fff;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity .2s ease;
+}
+.cursor--oculto { opacity: 0; }
+html.cursor-ativo, html.cursor-ativo * { cursor: none !important; }
+html.cursor-ativo input, html.cursor-ativo textarea { cursor: text !important; }
+html.cursor-ativo select { cursor: pointer !important; }
+.modo-demo .cursor-goma, .modo-demo .cursor-ponto { display: none; }
+
+/* ---------- Versão calma ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

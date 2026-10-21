@@ -1,0 +1,114 @@
+/* =========================================================
+   Gomolândia (conceito) — base: variáveis, reset, tipografia
+   Direção "pop premium": cor de bala com acabamento editorial.
+   ========================================================= */
+
+:root {
+  /* Paleta da marca */
+  --cereja: #D4113A;   /* cor principal, botões em destaque */
+  --chiclete: #FF5C8A; /* destaques, palavras acesas */
+  --acucar: #F7A1B5;   /* tons suaves */
+  --limao: #FFD21F;    /* acento, faixa corrida */
+  --maca: #7AC943;     /* sabor verde */
+  --piscina: #2FB8D6;  /* sabor azul */
+  --noite: #1F3C9E;    /* palco dos mascotes, contraste */
+  --uva: #6B2FB3;      /* sabor uva */
+  --creme: #FFF6F1;    /* texto sobre fundos escuros */
+  --tinta: #2A1630;    /* texto principal e fundos escuros */
+  --papel: #FFFAF6;    /* fundo base */
+
+  --tinta-suave: rgba(42, 22, 48, .7);
+  --linha: rgba(42, 22, 48, .12);
+  --foco: var(--cereja);
+
+  /* Tipografia */
+  --fonte-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
+  --fonte-texto: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fonte-logo: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+
+  /* Espaçamento e forma */
+  --gutter: clamp(20px, 4vw, 56px);
+  --largura: 1240px;
+  --raio: 20px;
+  --raio-g: clamp(28px, 3vw, 40px);
+  --sombra: 0 1px 2px rgba(42, 22, 48, .06), 0 22px 48px -22px rgba(42, 22, 48, .38);
+  --altura-topo: 72px;
+
+  /* Movimento */
+  --mola: cubic-bezier(.34, 1.56, .64, 1);
+  --saida: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Reset enxuto */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body, h1, h2, h3, p, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+img, svg, canvas { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[id] { scroll-margin-top: calc(var(--altura-topo) + 16px); }
+
+body {
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Títulos: grotesca expressiva, pesada e com espaçamento justo */
+h1, h2, h3 {
+  font-family: var(--fonte-display);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.035em;
+  font-optical-sizing: auto;
+}
+.titulo-l { font-size: clamp(2.6rem, 6vw, 5.4rem); }
+p { text-wrap: pretty; } /* evita palavra sozinha na última linha */
+
+/* Rótulo (eyebrow) com pontinho de cor */
+.rotulo {
+  display: inline-flex; align-items: center; gap: .65em;
+  font: 700 .78rem/1.2 var(--fonte-texto);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.rotulo__ponto {
+  flex: none;
+  width: 22px; height: 2px; border-radius: 2px;
+  background: var(--cereja);
+}
+.rotulo--claro { color: rgba(255, 246, 241, .78); }
+.rotulo--claro .rotulo__ponto { background: var(--limao); }
+
+/* Acessibilidade */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+main:focus { outline: none; }
+.pular {
+  position: absolute; left: 16px; top: -100px; z-index: 100;
+  background: var(--tinta); color: var(--creme); padding: 10px 16px; border-radius: 12px;
+  font-weight: 700;
+}
+.pular:focus { top: 48px; }
+
+/* Mensagens que dependem do tipo de tela */
+.so-toque { display: none; }
+@media (hover: none) {
+  .so-mouse { display: none; }
+  .so-toque { display: inline; }
+}
+
+.container { width: min(100% - 2 * var(--gutter), var(--largura)); margin-inline: auto; }
