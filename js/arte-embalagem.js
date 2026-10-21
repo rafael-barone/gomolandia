@@ -1,10 +1,4 @@
-/* =========================================================
-   Gomolândia — arte das embalagens (Canvas 2D)
-   Recria, em desenho vetorial feito por código, a linha de
-   embalagens da marca fictícia: Cola, Framboesa, Doces, Uva e
-   Mini Frutas. Os personagens são renders 3D do próprio projeto,
-   "impressos" na arte. Nenhuma imagem externa é usada.
-   ========================================================= */
+
 (function () {
   'use strict';
 
@@ -14,7 +8,7 @@
   const AZUL_ESCURO = '#0E1550';
   const AMARELO = '#FFC400';
 
-  // Linha de produtos (ilustrativa)
+  // Linha de produtos 
   const SABORES = [
     {
       id: 'cola', rotulo: 'Cola', nome: 'COLA', sabor: ['Sabor intenso', 'de cola'], formato: 'doypack',
@@ -50,7 +44,7 @@
   Gomo.SABORES = SABORES;
   Gomo.sabor = function (id) { return SABORES.find(function (s) { return s.id === id; }); };
 
-  // Espera as fontes antes de desenhar texto no canvas
+  
   let fontes = null;
   Gomo.fontesDaArte = function () {
     if (!fontes) {
@@ -162,7 +156,7 @@
 
   /* ---------- Tipografia da embalagem ---------- */
 
-  // Logo: letras brancas arredondadas, contorno azul grosso e sorriso amarelo
+  
   function logo(ctx, x, y, tam) {
     const txt = 'Gomolândia';
     ctx.save();
@@ -196,7 +190,7 @@
   }
   Gomo.desenharLogo = logo;
 
-  // Nome do produto em letras "gordinhas" com contorno e sombra
+
   function nomeBolha(ctx, texto, x, y, tam, t, alinhar, fill) {
     ctx.save();
     ctx.font = '400 ' + Math.round(tam) + 'px "Lilita One"';
@@ -230,7 +224,7 @@
     ctx.restore();
   }
 
-  // Ícones de traço (peso líquido)
+
   function icone(ctx, tipo, x, y, t, cor) {
     ctx.save();
     ctx.translate(x, y);
