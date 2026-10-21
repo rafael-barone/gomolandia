@@ -1,9 +1,3 @@
-/* =========================================================
-   Movimento: estados iniciais, micro-interações, cursor,
-   Lenis e a versão calma (prefers-reduced-motion)
-   ========================================================= */
-
-/* Esconde o texto do topo só até o GSAP preparar a entrada (máx. 4 s, ver <head>) */
 .carregando .hero__conteudo { visibility: hidden; }
 
 /* Rolagem suave nativa quando não há Lenis */
